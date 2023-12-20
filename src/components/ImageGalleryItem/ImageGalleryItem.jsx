@@ -1,5 +1,4 @@
 import { React, Component } from 'react';
-import { MyModal } from 'components/Modal/Modal';
 import css from './ImageGalleryItem.module.css';
 
 export class ImageGalleryItem extends Component {
