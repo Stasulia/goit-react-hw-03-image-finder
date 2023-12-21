@@ -4,6 +4,8 @@ import * as ImageService from './Service/imagesApi';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
+import { MyModal } from './Modal/Modal';
+import { Button } from './Button/Button';
 class App extends Component {
   state = {
     images: [],
@@ -28,8 +30,8 @@ class App extends Component {
 
   getImages = async (searchName, page) => {
     if (!searchName) return;
+    this.setState({ isLoading: true, error: '' });
     try {
-      this.setState({ isLoading: true, error: '' });
       const { hits, totalHits } = await ImageService.getAllImages(
         searchName,
         page
@@ -64,17 +66,28 @@ class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
   };
   render() {
-    const { images, isLoading, error, isShowImages } = this.state;
+    const { images, isLoading, error, isVisible, isEmpty, searchName } =
+      this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
         {isLoading && <h1>Loading...</h1>}
         {error && <h1>{error}</h1>}
-        {isShowImages &&
+        {isEmpty && <h1>Sorry, there is no images</h1>}
+        {/* {isShowImages &&
           images &&
           images.map(el => <ImageGalleryItem key={el.id} image={el} />)}
         <ImageGallery children={<ImageGalleryItem images={images} />} />
-        <button onClick={this.handleLoadMore}>Load more</button>
+        {<Button onClick={this.handleLoadMore}>Load more</Button>} */}
+
+        <ImageGallery children={<ImageGalleryItem images={images} />} />
+        {isVisible && !isLoading && images.length > 0 && (
+          <Button
+            onClick={this.handleLoadMore}
+            children={isLoading ? 'Loading' : 'Load more'}
+          />
+        )}
+
         {/* <div
           style={{
             height: '100vh',
