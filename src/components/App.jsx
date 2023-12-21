@@ -4,7 +4,6 @@ import * as ImageService from './Service/imagesApi';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
-import { MyModal } from './Modal/Modal';
 import { Button } from './Button/Button';
 class App extends Component {
   state = {
@@ -66,8 +65,7 @@ class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
   };
   render() {
-    const { images, isLoading, error, isVisible, isEmpty, searchName } =
-      this.state;
+    const { images, isLoading, error, isVisible, isEmpty } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
