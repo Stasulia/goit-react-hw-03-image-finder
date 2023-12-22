@@ -5,7 +5,8 @@ import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Button } from './Button/Button';
-import { Circles } from 'react-loader-spinner';
+import { Loader } from './Loader/Loader';
+// import { Circles } from 'react-loader-spinner';
 
 class App extends Component {
   state = {
@@ -59,9 +60,6 @@ class App extends Component {
       isEmpty: false,
     });
   };
-  // handleClick = () => {
-  //   this.setState(prevState => ({ isShowImages: !prevState.isShowImages }));
-  // };
 
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
@@ -93,17 +91,7 @@ class App extends Component {
               children={isLoading ? 'Loading' : 'Load more'}
             />
           )}
-          {isLoading && (
-            <Circles
-              height="80"
-              width="80"
-              color="rgb(164, 218, 220)"
-              ariaLabel="circles-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-            />
-          )}
+          {isLoading && <Loader />}
         </div>
       </>
     );
