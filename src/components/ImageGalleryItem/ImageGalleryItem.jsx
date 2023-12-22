@@ -27,7 +27,7 @@ export class ImageGalleryItem extends Component {
               onClick={() => this.onOpenModal(largeImageURL, tags)}
             >
               <img
-                className={css.ImageGalleryItem}
+                className={css.imageGalleryItem}
                 src={webformatURL}
                 alt={tags}
               />

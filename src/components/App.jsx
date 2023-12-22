@@ -5,6 +5,8 @@ import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Button } from './Button/Button';
+import { Circles } from 'react-loader-spinner';
+
 class App extends Component {
   state = {
     images: [],
@@ -64,38 +66,45 @@ class App extends Component {
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
   };
+
   render() {
     const { images, isLoading, error, isVisible, isEmpty } = this.state;
     return (
       <>
-        <Searchbar onSubmit={this.handleSubmit} />
-        {isLoading && <h1>Loading...</h1>}
-        {error && <h1>{error}</h1>}
-        {isEmpty && <h1>Sorry, there is no images</h1>}
-        {/* {isShowImages &&
-          images &&
-          images.map(el => <ImageGalleryItem key={el.id} image={el} />)}
-        <ImageGallery children={<ImageGalleryItem images={images} />} />
-        {<Button onClick={this.handleLoadMore}>Load more</Button>} */}
-
-        <ImageGallery children={<ImageGalleryItem images={images} />} />
-        {isVisible && !isLoading && images.length > 0 && (
-          <Button
-            onClick={this.handleLoadMore}
-            children={isLoading ? 'Loading' : 'Load more'}
-          />
-        )}
-
-        {/* <div
+        <div
           style={{
             height: '100vh',
-            display: 'flex',
+            display: 'grid',
             justifyContent: 'center',
             alignItems: 'center',
             fontSize: 40,
-            color: '#010101',
+            color: 'rgb(164, 218, 220)',
           }}
-        </div> */}
+        >
+          <Searchbar onSubmit={this.handleSubmit} />
+
+          {error && <h1>{error}</h1>}
+          {isEmpty && <h1>Sorry, there is no images</h1>}
+
+          <ImageGallery children={<ImageGalleryItem images={images} />} />
+          {isVisible && !isLoading && images.length > 0 && (
+            <Button
+              onClick={this.handleLoadMore}
+              children={isLoading ? 'Loading' : 'Load more'}
+            />
+          )}
+          {isLoading && (
+            <Circles
+              height="80"
+              width="80"
+              color="rgb(164, 218, 220)"
+              ariaLabel="circles-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+          )}
+        </div>
       </>
     );
   }
